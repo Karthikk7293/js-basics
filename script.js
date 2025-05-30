@@ -1,73 +1,85 @@
-// json => javascripit object notation 
-
-const data = {
-    "key": "value",
-    "age": "10",
-    "flag": "true"
+const mainFun = (data, callback) => {
+    console.log("this is :", data);
+    callback(data + 10)
 }
 
-const obj = {
-    key: "value",
-    age: 10,
-    flag: true
+const display = (value) => {
+    console.log("display callback ", value);
 }
 
-document.getElementById('click-me').addEventListener('click', () => {
+// mainFun("karthik", display)
 
-    fetch('https://fakestoreapi.com/products').then((response) => {
-        console.log({ response });
-        return response.json()
-    }).then((result) => {
-        console.log({ result });
-        result.id = 10
-        return result
-    }).then((res) => {
-        console.log({ res });
+// callback hell pyramid of doom 
 
-        for (let i = 0; i < res.length; i++) {
+const fun = () => {
+    console.log(" stage 1");
+    setTimeout(() => {
+        console.log(" stage 2");
+        setTimeout(() => {
+            console.log(" stage 3");
+            setTimeout(() => {
+                console.log(" stage 4");
 
-            const row = document.getElementById('row')
-            const col = document.createElement('div')
-            const card = document.createElement('div')
-            const title = document.createElement('h6')
-            const image = document.createElement('img')
-            const description = document.createElement('p')
+            }, 1000)
+        }, 1000)
+    }, 1000)
+}
 
-            col.setAttribute('class', 'col-4 mx-auto  py-4')
-            card.setAttribute('class', 'card shadow border border-success rounded  p-3')
+// console.log("starting");
+// fun()
+// console.log("ending");
 
-            title.innerHTML = res[i].title
-            title.setAttribute('class', 'text-success font-bold')
-
-            image.src = res[i].image
-            image.style.width = '8rem'
-            image.setAttribute('class', 'mx-auto')
-
-            description.innerHTML = res[i].description
-            description.setAttribute('class', 'text-info font-bold')
-            description.style.fontSize = '12px'
-
-            card.appendChild(image)
-            card.appendChild(title)
-            card.appendChild(description)
-            col.appendChild(card)
-            console.log(row);
-
-            row.appendChild(col)
-        }
-
-
-
-
-
-    }).catch((err) => {
-        const error = err.toString()
-
-        if (error.startsWith("S")) {
-            alert("something went wrong")
-
-        }
-
-
+const promise = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("first promise");
+            resolve("reject promise")
+        }, 1000)
     })
-})
+}
+
+const secPromise = (value) => {
+    return new Promise((resolve, reject) => {
+        console.log(value, " second promise");
+        setTimeout(() => {
+            resolve("second promise")
+        }, 1000)
+    })
+}
+
+// promise().then(secPromise).then((res) => {
+//     console.log("res ", res);
+
+// }).catch((err) => {
+//     console.log(err);
+
+// })
+
+
+// async / await  
+
+const fun1 = async () => {
+    const data = await fetch('https://fakestoreapi.com/products/1')
+    const res = await data.json()
+    console.log(res.id);
+
+    return res.id
+
+}
+
+const fun2 = async (value) => {
+    const data = await fetch(`https://fakestoreapi.com/products/${value}`)
+    const res = await data.json()
+    console.log(res);
+
+    return res + " second fun data"
+}
+
+const fun3 = async () => {
+    const data = await fun1()
+    const res = await fun2(data)
+    console.log({ res });
+
+}
+
+fun3()

@@ -1,85 +1,63 @@
-const mainFun = (data, callback) => {
-    console.log("this is :", data);
-    callback(data + 10)
-}
 
-const display = (value) => {
-    console.log("display callback ", value);
-}
+const handleLoad = async () => {
 
-// mainFun("karthik", display)
+    const data = await fetch('https://fakestoreapi.com/products')
+    const result = await data.json()
+    console.log({ result });
 
-// callback hell pyramid of doom 
+    const productRow = document.getElementById('product-row')
 
-const fun = () => {
-    console.log(" stage 1");
-    setTimeout(() => {
-        console.log(" stage 2");
-        setTimeout(() => {
-            console.log(" stage 3");
-            setTimeout(() => {
-                console.log(" stage 4");
+    for (let i = 0; i < result.length; i++) {
 
-            }, 1000)
-        }, 1000)
-    }, 1000)
-}
+        const card = document.createElement('div')
+        card.setAttribute('class', 'card')
+        card.setAttribute('id', `product-id-${result[i]}`)
+        card.style.width = '18rem';
 
-// console.log("starting");
-// fun()
-// console.log("ending");
+        const image = document.createElement('img')
+        image.src = result[i].image
+        image.setAttribute('class', 'card-img-top')
 
-const promise = () => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log("first promise");
-            resolve("reject promise")
-        }, 1000)
-    })
-}
+        const cardBody = document.createElement('div')
+        cardBody.setAttribute('class', 'card-body')
 
-const secPromise = (value) => {
-    return new Promise((resolve, reject) => {
-        console.log(value, " second promise");
-        setTimeout(() => {
-            resolve("second promise")
-        }, 1000)
-    })
-}
+        const title = document.createElement('h5')
+        title.setAttribute('class', 'card-title')
+        title.innerHTML = result[i].title
 
-// promise().then(secPromise).then((res) => {
-//     console.log("res ", res);
+        const description = document.createElement('p')
+        description.setAttribute('class', 'card-text')
+        description.innerHTML = result[i].description
 
-// }).catch((err) => {
-//     console.log(err);
+        cardBody.appendChild(title)
+        cardBody.appendChild(description)
+        card.appendChild(image)
+        card.appendChild(cardBody)
 
-// })
+        const button = document.createElement('button')
+        button.setAttribute('data-bs-toggle', "modal")
+        button.setAttribute('data-bs-target', "#staticBackdrop")
+        button.setAttribute('type', 'button')
 
+        // button.click = handleClick(result[i])
+        button.addEventListener('click', handleClick(result[i]))
+        button.setAttribute('class', 'btn btn-outline-primary ')
+        button.innerHTML = "edit"
+        card.appendChild(button)
 
-// async / await  
+        const col = document.createElement('div')
+        col.setAttribute('class', 'col-12  col-md-6 col-lg-4 ')
+        col.appendChild(card)
+        productRow.appendChild(col)
 
-const fun1 = async () => {
-    const data = await fetch('https://fakestoreapi.com/products/1')
-    const res = await data.json()
-    console.log(res.id);
+    }
 
-    return res.id
 
 }
 
-const fun2 = async (value) => {
-    const data = await fetch(`https://fakestoreapi.com/products/${value}`)
-    const res = await data.json()
-    console.log(res);
 
-    return res + " second fun data"
-}
-
-const fun3 = async () => {
-    const data = await fun1()
-    const res = await fun2(data)
-    console.log({ res });
+const handleClick = (id) => {
+    // alert(id)
+    console.log(id);
 
 }
-
-fun3()

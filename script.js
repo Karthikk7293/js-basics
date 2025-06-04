@@ -39,8 +39,7 @@ const handleLoad = async () => {
         button.setAttribute('data-bs-target', "#staticBackdrop")
         button.setAttribute('type', 'button')
 
-        // button.click = handleClick(result[i])
-        button.addEventListener('click', handleClick(result[i]))
+        button.addEventListener('click', () => handleClick(result[i]))
         button.setAttribute('class', 'btn btn-outline-primary ')
         button.innerHTML = "edit"
         card.appendChild(button)
@@ -56,8 +55,12 @@ const handleLoad = async () => {
 }
 
 
-const handleClick = (id) => {
-    // alert(id)
-    console.log(id);
+const handleClick = (product) => {
+    const title = document.getElementById('title')
+    title.value = product.title
+    const description = document.getElementById('description')
+    description.value = product.description
+    const image = document.getElementById('preview')
+    image.src = product.image
 
 }

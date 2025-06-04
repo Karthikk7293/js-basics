@@ -1,63 +1,99 @@
+// array functions 
 
-const handleLoad = async () => {
+const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    const data = await fetch('https://fakestoreapi.com/products')
-    const result = await data.json()
-    console.log({ result });
+// 1. push add new value at the end of the array
 
-    const productRow = document.getElementById('product-row')
+console.log(array);
 
-    for (let i = 0; i < result.length; i++) {
+array.push(10)
 
-        const card = document.createElement('div')
-        card.setAttribute('class', 'card')
-        card.setAttribute('id', `product-id-${result[i]}`)
-        card.style.width = '18rem';
+console.log(array);
 
-        const image = document.createElement('img')
-        image.src = result[i].image
-        image.setAttribute('class', 'card-img-top')
+// 2. pop remove the last element
 
-        const cardBody = document.createElement('div')
-        cardBody.setAttribute('class', 'card-body')
+array.pop()
 
-        const title = document.createElement('h5')
-        title.setAttribute('class', 'card-title')
-        title.innerHTML = result[i].title
+console.log(array);
 
-        const description = document.createElement('p')
-        description.setAttribute('class', 'card-text')
-        description.innerHTML = result[i].description
+//3. shift  it removes the first element of an array
 
-        cardBody.appendChild(title)
-        cardBody.appendChild(description)
-        card.appendChild(image)
-        card.appendChild(cardBody)
+array.shift()
 
-        const button = document.createElement('button')
-        button.setAttribute('data-bs-toggle', "modal")
-        button.setAttribute('data-bs-target', "#staticBackdrop")
-        button.setAttribute('type', 'button')
+console.log(array);
 
-        // button.click = handleClick(result[i])
-        button.addEventListener('click', handleClick(result[i]))
-        button.setAttribute('class', 'btn btn-outline-primary ')
-        button.innerHTML = "edit"
-        card.appendChild(button)
+// 4. unshift add elements to the starting of an array
 
-        const col = document.createElement('div')
-        col.setAttribute('class', 'col-12  col-md-6 col-lg-4 ')
-        col.appendChild(card)
-        productRow.appendChild(col)
+array.unshift(1, 10, 20)
 
-    }
+console.log(array);
+
+// 5. length count the number of elements
+
+console.log(array.length);
+
+// 6. slice extract/create new array with (starting) and (ending+1) index values
+
+const updatedArray = array.slice(2, 6)
+
+console.log(updatedArray);
+
+console.log(array);
+
+//7. splice remove some elements from an array with starting index and number of elements
+
+array.splice(2, 4)
+
+console.log(array);
 
 
-}
+//8. indexOf find the index with value
 
 
-const handleClick = (id) => {
-    // alert(id)
-    console.log(id);
+console.log(array.indexOf(10));
 
-}
+
+// string methods / funtions
+
+const string = "hello world hi hello";
+
+// 1 toUpperCase 
+
+let updatedString = string.toUpperCase()
+
+console.log(string);
+console.log(updatedString);
+
+// 2 toLowerCase
+
+updatedString = updatedString.toLowerCase()
+
+console.log(string);
+console.log(updatedString);
+
+// 3. split split the elements [string to array ]
+
+updatedString = string.split(" ")
+
+console.log(string);
+console.log(updatedString);
+
+// join join the elements in an array [array to string ]
+
+updatedString = updatedString.join('')
+
+console.log(updatedString);
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,94 +1,88 @@
-// array functions 
+// transfromation functions 
 
-const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// 1. map  return new array
 
-// 1. push add new value at the end of the array
+const array = [1, 2, 20, 4, 5, 6, 7, 8, 9];
 
-console.log(array);
+const newArray = array.map((item, index) => {
+    // console.log({ item, index });
+    return item * 2
 
-array.push(10)
+})
 
-console.log(array);
+console.log(newArray);
 
-// 2. pop remove the last element
+// 2. filter
 
-array.pop()
+const filteredArray = array.filter((item) => {
+    if (item % 2 === 0) {
+        return item
+    }
+})
 
-console.log(array);
+console.log(filteredArray);
 
-//3. shift  it removes the first element of an array
-
-array.shift()
-
-console.log(array);
-
-// 4. unshift add elements to the starting of an array
-
-array.unshift(1, 10, 20)
+// 3. reduce 
 
 console.log(array);
 
-// 5. length count the number of elements
+const reducedData = array.reduce((accumulator, currentValue) => accumulator + currentValue, 10)
 
-console.log(array.length);
+console.log(reducedData);
 
-// 6. slice extract/create new array with (starting) and (ending+1) index values
+// 4. foreach
 
-const updatedArray = array.slice(2, 6)
+const foreachResult = array.forEach((item) => {
+    // console.log(item);
+    return item
+})
 
-console.log(updatedArray);
+console.log(foreachResult);
 
-console.log(array);
+// 5. flat 
 
-//7. splice remove some elements from an array with starting index and number of elements
+const flatArray = [1, [2, 3, 4], 5, [6, 7, [8, 9]], 10];
 
-array.splice(2, 4)
+const flatArrayResult = flatArray.flat(2)
 
-console.log(array);
+console.log(flatArrayResult);
 
+// 6. sort 
 
-//8. indexOf find the index with value
+const arraySort = [1, 4, 6, 3, 6, 3, 8, 9, 32, 0]
 
+let sortedArray = arraySort.sort((a, b) => a - b)
 
-console.log(array.indexOf(10));
+console.log(sortedArray);
 
+sortedArray = arraySort.sort((a, b) => b - a)
 
-// string methods / funtions
-
-const string = "hello world hi hello";
-
-// 1 toUpperCase 
-
-let updatedString = string.toUpperCase()
-
-console.log(string);
-console.log(updatedString);
-
-// 2 toLowerCase
-
-updatedString = updatedString.toLowerCase()
-
-console.log(string);
-console.log(updatedString);
-
-// 3. split split the elements [string to array ]
-
-updatedString = string.split(" ")
-
-console.log(string);
-console.log(updatedString);
-
-// join join the elements in an array [array to string ]
-
-updatedString = updatedString.join('')
-
-console.log(updatedString);
+console.log(sortedArray);
 
 
+// spread operator and rest operator
 
 
+// rest operator 
+
+const fun = (...rest) => {
+
+    const [num1, ...data] = rest
+
+    console.log(num1, data);
+}
 
 
+fun(10, 20, 30, 50)
+
+// spread operator 
+
+const array1 = [1, 2, 3, 4];
+const array2 = [5, 6, 7, 8];
+
+const array3 = [...array1, ...array2]
+
+console.log(array3);
 
 
 
